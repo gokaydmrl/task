@@ -25,46 +25,43 @@ const useDataHook = () => {
   const [client, setClient] = useState<any>(null);
   const [connectionStatus, setConnectionStatus] = useState<boolean | null>(null);
   const [payload, setPayload] = useState<any>(null);
-  //  const mqttConnect = (hostt: any, options: any) => {
-  //    setClient(mqtt.connect(hostt, options));
-  //  };
 
   const subscriptionn = {
     topic: "$SYS",
+    qos: 1,
   };
   const mqttSub = (subscription: any) => {
     if (client) {
-      const { topic } = subscription;
-      client.subscribe("$SYS", (error: any) => {
+      const { topic, qos } = subscription;
+      client.subscribe(topic, qos, (error: any) => {
         if (error) {
           console.log("Subscrie to topics error", error);
           return;
         }
-        console.log("tpic", topic);
+        console.log("toopic", topic);
       });
     }
   };
-  
-  console.log("client", client);
+
+  console.log("clieent", client);
 
   useEffect(() => {
     const makeConnection = () => {
       mqtt.connect(hostt, options as IClientOptions);
       setClient(mqtt.connect(hostt, options as IClientOptions));
     };
-    makeConnection()
+    makeConnection();
     mqttSub(subscriptionn);
     if (client) {
-      console.log(client);
+      console.log(client.connected);
       client.on("connect", () => {
         console.log("Connected");
       });
       client.on("error", (err: any) => {
-        console.error("Connection error: ", err);
-        client.end();
+        console.log("Connectiion errror: ", err);
       });
       client.on("reconnect", () => {
-        console.log("Reconnectng");
+        console.log("Recconnectng");
       });
       client.on("message", (payload: any) => {
         console.log("payload", payload);
