@@ -1,41 +1,80 @@
 import { useState, useEffect, useRef } from "react";
 import * as mqtt from "mqtt/dist/mqtt.min";
+import { IClientOptions } from "mqtt/dist/mqtt.min";
+
 const useDataHook = () => {
-
-  const ws = new WebSocket("ws://138.68.8.53:8000/mqtt");
-
-  const clientId = "digiterra-coding-task-1"
-  const host = "ws://138.68.8.53:8000/mqtt";
+  const clientId = "digiterra-coding-task-1";
+  const hostt = "ws://138.68.8.53:8000/mqtt";
   const options = {
-    keepalive: 60000,
+    keepalive: 60000000,
     clientId: clientId,
-    protocolId: 'MQTT',
+    protocolId: "MQTT",
     protocolVersion: 4,
     clean: true,
     reconnectPeriod: 5000,
     connectTimeout: 30 * 1000,
     will: {
-      topic: 'WillMsg',
-      payload: 'Connection Closed abnormally..!',
+      topic: "WillMsg",
+      payload: "Connection Closed abnormally..!",
       qos: 0,
-      retain: false
+      retain: false,
     },
-    rejectUnauthorized: false
+    rejectUnauthorized: false,
+  };
 
-  }
-  
-  const client = mqtt.connect(host, options)
-  client.on('error', (err) => {
-    console.log('Connection error: ', err)
-    client.end()
-  })
-  
-
-
-
- // const [client, setClient] = useState<any>(null);
-  const [connectionStatus, setConnectionStatus] = useState<string | null>(null);
+  const [client, setClient] = useState<any>(null);
+  const [connectionStatus, setConnectionStatus] = useState<boolean | null>(null);
   const [payload, setPayload] = useState<any>(null);
+  //  const mqttConnect = (hostt: any, options: any) => {
+  //    setClient(mqtt.connect(hostt, options));
+  //  };
+
+  const subscriptionn = {
+    topic: "$SYS",
+  };
+  const mqttSub = (subscription: any) => {
+    if (client) {
+      const { topic } = subscription;
+      client.subscribe("$SYS", (error: any) => {
+        if (error) {
+          console.log("Subscrie to topics error", error);
+          return;
+        }
+        console.log("tpic", topic);
+      });
+    }
+  };
+  
+  console.log("client", client);
+
+  useEffect(() => {
+    const makeConnection = () => {
+      mqtt.connect(hostt, options as IClientOptions);
+      setClient(mqtt.connect(hostt, options as IClientOptions));
+    };
+    makeConnection()
+    mqttSub(subscriptionn);
+    if (client) {
+      console.log(client);
+      client.on("connect", () => {
+        console.log("Connected");
+      });
+      client.on("error", (err: any) => {
+        console.error("Connection error: ", err);
+        client.end();
+      });
+      client.on("reconnect", () => {
+        console.log("Reconnectng");
+      });
+      client.on("message", (payload: any) => {
+        console.log("payload", payload);
+        setPayload(payload);
+      });
+    } else {
+      console.log("no cli");
+    }
+  }, []);
+
   interface Host {
     current: string;
   }
@@ -46,7 +85,6 @@ const useDataHook = () => {
     protocol: "ws";
   }
 
-
   const mqttOptions: Option = {
     username: "username",
     password: "password",
@@ -54,36 +92,8 @@ const useDataHook = () => {
     protocol: "ws",
   };
 
-  // useEffect(() => {
-  //   client.on("error", (err: any) => {
-  //     console.log("this err", err);
-  //   });
-  // }, []);
-  //   const mqttConnect = (host: Host, mqttOptions: Option) => {
-  //     setConnectionStatus("connecting");
-  //     setClient(mqtt.connect(host.current, mqttOptions));
-  //   };
-  //   useEffect(() => {
-  //     mqttConnect(host.current, mqttOptions);
-  //     if (client) {
-  //       console.log(client);
-  //       client.on("connect", () => {
-  //         setConnectionStatus("Connected");
-  //       });
-  //       client.on("error", (err: any) => {
-  //         console.error("Connection error: ", err);
-  //         client.end();
-  //       });
-
-  //       client.on("message", (topic: any, message: any) => {
-  //         const payload = { topic, message: message.toString() };
-  //         setPayload(payload);
-  //       });
-  //     }
-  //   }, []);
-
   const [datam, setDatam] = useState([125, 251, 196]);
-  const newData = [130, 200, 190, 230, 340];
+  const newData = [130, 200, 190, 230, 340, 50, 100, 90];
   useEffect(() => {
     const timer = setTimeout(() => {
       setDatam([...datam, ...newData]);
