@@ -2,6 +2,10 @@ import React from "react";
 import ReactEcharts from "echarts-for-react";
 
 function ChartRndm({ data, type, time }: { data: number[]; type: string; time: string[] }) {
+  const lastInd = data.length - 1;
+  if (type === "pie") {
+    data = data.slice(lastInd - 2);
+  }
   const options = {
     grid: { top: 8, right: 8, bottom: 24, left: 36 },
     xAxis: {
