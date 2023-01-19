@@ -12,7 +12,7 @@ function App() {
   //   }, 4000);
   //   return () => clearTimeout(timer);
   // }, []);
-  const { datam } = useDataHook();
+  const { times, data } = useDataHook();
   // const arr = [
   //   {
   //     comp: <ChartRndm data={data} type="line" />,
@@ -22,22 +22,22 @@ function App() {
   return (
     <Grid container rowSpacing={4} columnSpacing={4} width={"100wv"} sx={{ minWidth: "320px" }}>
       <Grid item lg={4} md={6} sm={12} xs={12}>
-        <ChartRndm data={datam} type="pie" />
+        <ChartRndm data={data} type="pie" time={times} />
       </Grid>
       <Grid item lg={4} md={6} sm={12} xs={12}>
-        <ChartRndm data={datam} type="bar" />
+        <ChartRndm data={data} type="bar" time={times} />
       </Grid>
       <Grid item lg={4} md={6} sm={12} xs={12}>
-        <ChartRndm data={datam} type="line" />
+        <ChartRndm data={data} type="line" time={times} />
       </Grid>
       <Grid item lg={4} md={6} sm={12} xs={12}>
-        <ChartRndm data={datam} type="bar" />
+        <ChartRndm data={data} type="bar" time={times} />
       </Grid>
       <Grid item lg={4} md={6} sm={12} xs={12}>
-        <ChartRndm data={datam} type="line" />
+        <ChartRndm data={data} type="line" time={times} />
       </Grid>
       <Grid item lg={4} md={6} sm={12} xs={12}>
-        <ChartRndm data={datam} type="bar" />
+        <ChartRndm data={data} type="bar" time={times} />
       </Grid>
     </Grid>
   );

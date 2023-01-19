@@ -1,12 +1,12 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-function ChartRndm({ data, type }: { data: number[]; type: string }) {
+function ChartRndm({ data, type, time }: { data: number[]; type: string; time: string[] }) {
   const options = {
     grid: { top: 8, right: 8, bottom: 24, left: 36 },
     xAxis: {
       type: "category",
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Tue", "Wed", "Thu", "Fri"],
+      data: time,
     },
     yAxis: {
       type: "value",
@@ -21,7 +21,6 @@ function ChartRndm({ data, type }: { data: number[]; type: string }) {
     tooltip: {
       trigger: "axis",
     },
-   
   };
 
   return <ReactEcharts option={options} />;
