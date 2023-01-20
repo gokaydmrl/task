@@ -1,7 +1,9 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
-
+import "../App.css";
 function ChartRndm({ data, type, time }: { data: number[]; type: string; time: string[] }) {
+  //  console.log("chart",time);
+
   const lastInd = data.length - 1;
   if (type === "pie") {
     data = data.slice(lastInd - 1);
@@ -42,9 +44,17 @@ function ChartRndm({ data, type, time }: { data: number[]; type: string; time: s
       <div
         style={{
           display: "grid",
+          alignItems: "centter",
+          justifyContent: "center",
         }}>
-        <p>current data: {data[1]}</p>
-        <p>last data: {data[0]} </p>
+        <div className="pieParent">
+          <h3>last data:</h3>
+          <p> {data[0]}</p>
+        </div>
+        <div className="pieParent">
+          <h3>current data:</h3>
+          <p> {data[1]}</p>
+        </div>{" "}
       </div>
     </div>
   ) : (
