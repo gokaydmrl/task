@@ -2,7 +2,10 @@ import React from "react";
 import ReactEcharts from "echarts-for-react";
 import "../App.css";
 function ChartRndm({ data, type, time }: { data: number[]; type: string; time: string[] }) {
-  //  console.log("chart",time);
+/*
+I wouldn't add lables or any colorful areas 
+since my data is just an array of random numbers 
+*/
 
   const lastInd = data.length - 1;
   if (type === "pie") {
