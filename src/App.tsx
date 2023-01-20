@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-
 import Chart from "./components/Chart";
 import useRandomDataHook from "./Hooks/useRandomDataHook";
 function App() {

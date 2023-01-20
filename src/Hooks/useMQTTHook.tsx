@@ -3,6 +3,14 @@ import * as mqtt from "mqtt/dist/mqtt.min";
 import { IClientOptions, IClientSubscribeOptions, QoS } from "mqtt/dist/mqtt.min";
 
 const useMQTTHook = () => {
+/*
+This is the hook through which i tried to connect mqtt data
+unfortunately i even didn't see it connected,
+it logs "reconnecting" in the console but couldn't connect
+Also, subscribtion method kept sending "Connection closed" error.
+The code below is the last version of my many attempts
+*/
+
   const clientId = "digiterra-coding-task-1";
   const hostt = "ws://138.68.8.53:8000/mqtt";
   const options: IClientOptions = {
@@ -61,5 +69,7 @@ const useMQTTHook = () => {
       setPayload(payload);
     });
   }, []);
+
+  return { payload };
 };
 export default useMQTTHook;

@@ -3,18 +3,13 @@
   padding: 1rem; */
   text-align: center;
 }
-.pieParent{
-border: 1px solid black;
-border-radius: 10%;
-padding: 8px;
-height: 100px;
-display: grid;
-justify-content: center;
-align-items: center;
-text-align: center;
-
-
-
-
-
+.pieParent {
+  border: 1px solid black;
+  border-radius: 10%;
+  padding: 8px;
+  height: 100px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
