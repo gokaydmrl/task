@@ -2,6 +2,11 @@ import Grid from "@mui/material/Grid";
 import Chart from "./components/Chart";
 import useRandomDataHook from "./Hooks/useRandomDataHook";
 function App() {
+/*
+in the first place, 
+to manage and test the responsiveness i create six charts. 
+*/
+
   const { times, data } = useRandomDataHook();
 
   return (
